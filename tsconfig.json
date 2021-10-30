@@ -22,5 +22,12 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "baseUrl": "./src",
+  "paths": {
+    "@Components/*": ["./src/pages/components/*"],
+    "@Pages/*": ["./src/pages/*"],
+    "@Utils/*": ["./src/utils/*"],
+
+  }
 }

@@ -4,7 +4,7 @@ const Main = withLoadable(import('./components/root-router/main-router'))
 
 function App(props: any) {
   return (
-    <main style={{ display: 'grid', placeItems: 'center', height: '100vh', width: '100vw' }}>
+    <main style={{ display: 'grid', placeItems: 'center', height: '100vh', width: '100vw', backgroundColor: "#FAFBFC" }}>
       <Main />
     </main>
   );

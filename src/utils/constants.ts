@@ -1,0 +1,1 @@
+export const TARGET = { REPOSITORY: "REPOSITORIES", USERS: "USERS" };

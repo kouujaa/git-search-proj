@@ -2,7 +2,7 @@ import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { TARGET } from "../../../utils/constants"
+import { TARGET } from "../../../utils/constants";
 
 interface Props {
   repositories?: number;
@@ -11,10 +11,7 @@ interface Props {
   type: string;
 }
 
-export const ResultRow: React.FC<Props> = ({
-  data,
-  type,
-}) => {
+export const ResultRow: React.FC<Props> = ({ data, type }) => {
   return (
     <>
       {type === TARGET.REPOSITORY ? (
@@ -32,7 +29,7 @@ export const ResultRow: React.FC<Props> = ({
               sx={{ fontSize: 16, fontWeight: 700, color: "#00000" }}
               component="div"
             >
-              {data.name}
+              {data?.node?.name}
             </Typography>
             <Typography
               sx={{
@@ -44,7 +41,7 @@ export const ResultRow: React.FC<Props> = ({
               color="text.secondary"
               gutterBottom
             >
-              {data.title}
+              {data?.node?.description}
             </Typography>
             <Typography
               sx={{
@@ -57,8 +54,9 @@ export const ResultRow: React.FC<Props> = ({
               }}
               color="text.secondary"
             >
-              {data.stars} Stars | {data.tech} | {data.liscence} License |{" "}
-              {data.time}
+              {data?.node?.stargazers?.totalCount} Stars |{" "}
+              {data?.node?.primaryLanguage?.name} |{" "}
+              {data?.node?.licenseInfo?.name} | updated {data?.node?.updatedAt}
             </Typography>
           </CardContent>
         </Card>
@@ -78,7 +76,7 @@ export const ResultRow: React.FC<Props> = ({
               sx={{ fontSize: 16, fontWeight: 700, color: "#00000" }}
               component="div"
             >
-              {data.name}{" "}
+              {data?.node?.name}{" "}
               <Typography
                 sx={{
                   fontSize: 14,
@@ -89,7 +87,7 @@ export const ResultRow: React.FC<Props> = ({
                 color="text.secondary"
                 gutterBottom
               >
-                {data.title}
+                {data?.node?.company}
               </Typography>
             </Typography>
             <Typography
@@ -103,7 +101,7 @@ export const ResultRow: React.FC<Props> = ({
               }}
               color="text.secondary"
             >
-              {data.content}
+              {data?.node?.bio}
             </Typography>
           </CardContent>
         </Card>

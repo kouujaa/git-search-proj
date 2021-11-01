@@ -8,7 +8,7 @@ import useStyles, {
   SearchIconWrapper,
   StyledInputBase,
 } from "./HomeLayout.style";
-import UserLoginStatus from '../../components/UserLoginStatus';
+import UserLoginStatus from "../../components/UserLoginStatus";
 interface Props {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -56,7 +56,7 @@ const HomeLayout: React.FC<Props> = ({
         </SearchIconWrapper>
       </Search>
       <CustomButton onClick={onSearch}>
-        <NavLink to={"/result"}>
+        <NavLink to={`/result/${searchTerm}`}>
           <Typography variant="body1" sx={{ fontWeight: "bolder" }}>
             Search Github
           </Typography>

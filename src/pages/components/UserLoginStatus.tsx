@@ -26,23 +26,33 @@ export default function UserLoginStatus() {
 
   const handleMenu = (event: any) => {
     setAnchorEl(!anchorEl);
-    console.log(event)
+    console.log(event);
   };
   const handleClose = () => {
     setAnchorEl(false);
   };
   return (
-    <Toolbar style={{float: 'right'}}>
-      <Avatar
-        alt="pimg"
-        src="/pimg.jpeg"
-      />
-      <Typography sx={{fontWeight: 400, fontSize: '16px', lineHeight: '18.75'}}>kelvin</Typography>
+    <Toolbar style={{ float: "right" }}>
+      <Avatar alt="pimg" src="/pimg.jpeg" />
+      <Typography
+        sx={{ fontWeight: 400, fontSize: "16px", lineHeight: "18.75" }}
+      >
+        kelvin
+      </Typography>
       <div>
-      <KeyboardArrowDownIcon onClick={handleMenu}/>
-      {anchorEl ? <div style={{minHeight: '10px',minWidth:'30px',backgroundColor: 'green'}}>dey</div> : null}
+        <KeyboardArrowDownIcon onClick={handleMenu} />
+        {anchorEl ? (
+          <div
+            style={{
+              minHeight: "10px",
+              minWidth: "30px",
+              backgroundColor: "green",
+            }}
+          >
+            dey
+          </div>
+        ) : null}
       </div>
-
     </Toolbar>
   );
 }

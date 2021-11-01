@@ -26,12 +26,14 @@ export const ResultsList: React.FC<Props> = ({ type, data }) => {
               marginBottom: "15px",
             }}
           >
-            {`${data.length} ${type}`}{" "}
+            {`${data.length} ${type}`}
           </Typography>
         </div>
-        {data.slice(currentPage * 10 - 9, currentPage * 10).map((e: any) => (
-          <ResultRow data={e} type={type} />
-        ))}
+        {data
+          .slice(currentPage * 10 - 9, currentPage * 10)
+          .map((datum: any) => (
+            <ResultRow data={datum} type={type} key={datum.node.id} />
+          ))}
       </div>
       <div style={{ float: "right" }}>
         <Pagination

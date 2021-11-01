@@ -1,11 +1,14 @@
 import React from "react";
-import ResultsLayout from "./layout/ResultsLayout";
+import { useQuery } from "@apollo/client";
+
 import Chip from "@mui/material/Chip";
-import NavBar from "../components/NavBar";
-import { TARGET } from "../../utils/constants";
 import { Container, Typography } from "@mui/material";
-import { repos, users } from "../../utils/mockData";
+
+import NavBar from "../components/NavBar";
+import ResultsLayout from "./layout/ResultsLayout";
 import UserLoginStatus from "../components/UserLoginStatus";
+import { GET_REPOSITORIES, GET_USERS } from "../../services/queries";
+
 //
 import useStyles, {
   Search,
@@ -13,36 +16,88 @@ import useStyles, {
   StyledInputBase,
 } from "../home/layout/HomeLayout.style";
 import SearchIcon from "@mui/icons-material/Search";
-//
+import * as H from "history";
 
-// import GitHubLogin from "react-github-login";
-// const onSuccess = (response: any) => console.log(response);
-// const onFailure = (response: any) => console.error(response);
+//
+interface Props {
+  match: any;
+  location: H.Location;
+  history: H.History;
+  staticContext?: any;
+}
+
 enum TabValues {
   REPOSITORY = "REPOSITORIES",
   USERS = "USERS",
 }
 
-const ResultsController = () => {
+const ResultsController: React.FC<Props> = ({
+  match,
+  location,
+  history,
+  staticContext,
+}) => {
   const [value, setValue] = React.useState(TabValues.REPOSITORY);
-  const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const [repositories, setRepositories] = React.useState<any[]>([]);
+  const [users, setUsers] = React.useState<any[]>([]);
+  const [repositoryCount, setRepositoryCount] = React.useState<number>(0);
+  const [usersCount, setUserCount] = React.useState<number>(0);
+  const [searchTerms, setSearchTerm] = React.useState<string>("");
+  const { searchTerm } = match.params;
+
+  const {
+    data: repositoryData,
+    loading: loadingRepositories,
+    error: repositoryError,
+    refetch: refetchRepositories,
+  } = useQuery(GET_REPOSITORIES, {
+    variables: { queryString: searchTerm },
+  });
+  const {
+    data: userData,
+    loading: loadingUsers,
+    error: userError,
+    refetch: refetchUsers,
+  } = useQuery(GET_USERS, {
+    variables: { queryString: searchTerm },
+  });
+
+  React.useEffect(() => {
+    console.log({ repositoryData, loadingRepositories, repositoryError });
+    console.log({ userData, loadingUsers, userError });
+    if (
+      repositoryData?.search?.repositoryCount &&
+      !repositoryData.loadingRepositories
+    ) {
+      repositoryData && setRepositories(repositoryData.search.edges);
+      repositoryData &&
+        setRepositoryCount(repositoryData.search.repositoryCount);
+    }
+    if (userData?.search?.userCount && !userData.loadingUsers) {
+      userData && setUsers(userData.search.edges);
+      userData && setUserCount(userData.search.userCount);
+    }
+  }, [repositoryData, userData]);
+
+  React.useEffect(() => {
+    console.log(searchTerm);
+  }, [searchTerm]);
+
   const handleChange = (
     event: React.SyntheticEvent<Element, Event>,
     newValue: any
   ) => {
     setValue(newValue);
   };
+
   const onchange = (e: any) => {
     setValue(e);
   };
   return (
     <>
-      {/* <GitHubLogin clientId="4f262cc9e20d3043da02"
-    onSuccess={onSuccess}
-    onFailure={onFailure}/> */}
       <NavBar
         navComponents={
-          <div style={{display: 'flex'}}>
+          <div style={{ display: "flex" }}>
             <Search>
               <StyledInputBase
                 inputProps={{ "aria-label": "search" }}
@@ -103,7 +158,7 @@ const ResultsController = () => {
             >
               {TabValues.REPOSITORY}
             </Typography>
-            <Chip label={repos.length} />
+            <Chip label={repositoryCount} />
           </div>
           <div
             onClick={() => {
@@ -131,11 +186,11 @@ const ResultsController = () => {
             >
               {TabValues.USERS}
             </Typography>
-            <Chip label={users.length} />
+            <Chip label={usersCount} />
           </div>
         </div>
         {value === TabValues.REPOSITORY && (
-          <ResultsLayout type={TabValues.REPOSITORY} data={repos} />
+          <ResultsLayout type={TabValues.REPOSITORY} data={repositories} />
         )}
         {value === TabValues.USERS && (
           <ResultsLayout type={TabValues.USERS} data={users} />

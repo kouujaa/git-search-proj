@@ -19,9 +19,8 @@ const useStyles = () => ({
     backgroundColor: "#F7F7F8",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center", 
-  }
-
+    alignItems: "center",
+  },
 });
 
 export default useStyles;

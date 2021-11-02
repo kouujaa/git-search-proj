@@ -5,39 +5,48 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   container: {
-    height: "50%",
-    width: "50%",
+    height: "70vh",
+    width: "60vw",
     display: "flex",
-    marginTop: "-30vh",
+    backgroundColor: "#FAFBFC",
+  },
+  aside: {
+    maxHeight: "140px",
+    minWidth: "280px",
+    display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    rowGap: "30px",
+    backgroundColor: "white",
+    borderRadius: "3px",
+  },
+  asideDiv: {
+    display: "flex",
+    justifyContent: "space-between",
     alignItems: "center",
+    cursor: "pointer",
+    minHeight: "15px",
+    minWidth: "220px",
   },
-  mb40: {
-    marginBottom: "-40px",
-  },
-  boldFont: {
-    fontWeight: "bolder",
+  asideDivText: {
+    fontWeight: 400,
+    fontSize: "14px",
+    lineHeight: "18.23px",
+    color: "#5c5c5c",
   },
 });
-
+export default useStyles;
 export const CustomButton = styled(Button)({
   padding: "8px 22px",
   margin: "0 8px",
   color: "#FFFFFF",
   backgroundColor: "#5C5C5C",
   borderRadius: "5px",
-  width: "179px",
+  width: "190px",
   height: "40px",
   cursor: "pointer",
   textTransform: "none",
   "&:hover": {
     backgroundColor: "#5C5C5C",
-  },
-  "&:visited": {
-    textDecoration: "none",
-    color: "#FFFFFF",
   },
 });
 
@@ -86,5 +95,3 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
-export default useStyles;

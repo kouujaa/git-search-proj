@@ -3,6 +3,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { TARGET } from "../../../utils/constants";
+import { formatTimeAgo } from "../../../utils/time";
 
 interface Props {
   repositories?: number;
@@ -12,6 +13,9 @@ interface Props {
 }
 
 export const ResultRow: React.FC<Props> = ({ data, type }) => {
+  const gotoURL = (URI: string) => {
+    window.location.href = URI;
+  };
   return (
     <>
       {type === TARGET.REPOSITORY ? (
@@ -22,6 +26,10 @@ export const ResultRow: React.FC<Props> = ({ data, type }) => {
             borderRadius: "3px",
             backgroundColor: "#FFFFF",
             minHeight: "98px",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            gotoURL(data?.node?.url);
           }}
         >
           <CardContent>
@@ -54,9 +62,10 @@ export const ResultRow: React.FC<Props> = ({ data, type }) => {
               }}
               color="text.secondary"
             >
-              {data?.node?.stargazers?.totalCount} Stars |{" "}
-              {data?.node?.primaryLanguage?.name} |{" "}
-              {data?.node?.licenseInfo?.name} | updated {data?.node?.updatedAt}
+              {data?.node?.stargazerCount} Stars |
+              {data?.node?.primaryLanguage?.name} |
+              {data?.node?.licenseInfo?.name || "none"} | Updated{" "}
+              {formatTimeAgo(data?.node?.updatedAt)}
             </Typography>
           </CardContent>
         </Card>
@@ -64,11 +73,15 @@ export const ResultRow: React.FC<Props> = ({ data, type }) => {
       {type === TARGET.USERS ? (
         <Card
           sx={{
-            minWidth: 680,
+            minWidth: 580,
             marginBottom: "20px",
             borderRadius: "3px",
             backgroundColor: "#FFFFF",
-            minHeight: "98px",
+            minHeight: "70px",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            gotoURL(data?.node?.url);
           }}
         >
           <CardContent>
@@ -76,7 +89,7 @@ export const ResultRow: React.FC<Props> = ({ data, type }) => {
               sx={{ fontSize: 16, fontWeight: 700, color: "#00000" }}
               component="div"
             >
-              {data?.node?.name}{" "}
+              {data?.node?.name} / {data?.node?.login}
               <Typography
                 sx={{
                   fontSize: 14,

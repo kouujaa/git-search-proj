@@ -1,43 +1,10 @@
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
-  container: {
-    height: "50%",
-    width: "50%",
-    display: "flex",
-    marginTop: "-30vh",
-    flexDirection: "column",
-    justifyContent: "center",
-    rowGap: "30px",
-    alignItems: "center",
-  },
-  mb40: {
-    marginBottom: "-40px",
-  },
-  boldFont: {
-    fontWeight: "bolder",
-  },
-});
-
-export const CustomButton = styled(Button)({
-  padding: "8px 22px",
-  margin: "0 8px",
-  color: "#FFFFFF",
-  backgroundColor: "#5C5C5C",
-  borderRadius: "5px",
-  width: "179px",
-  height: "40px",
-  cursor: "pointer",
-  textTransform: "none",
-  "&:hover": {
-    backgroundColor: "#5C5C5C",
-  },
-  "&:visited": {
-    textDecoration: "none",
-    color: "#FFFFFF",
+  bgColor: {
+    backgroundColor: "#FFFFFF",
   },
 });
 
@@ -46,6 +13,7 @@ export const Search = styled("div")(({ theme }) => ({
   display: "flex",
   borderRadius: "100px",
   border: "solid",
+  borderWidth: "1px",
   borderColor: "#C4C4C4",
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
@@ -53,7 +21,7 @@ export const Search = styled("div")(({ theme }) => ({
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
-  minWidth: "580px",
+  minWidth: "380px",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(3),
     width: "auto",
@@ -66,7 +34,7 @@ export const SearchIconWrapper = styled("div")(({ theme }) => ({
   height: "100%",
   color: "#5C5C5C",
   position: "absolute",
-  left: "90%",
+  left: "85%",
   pointerEvents: "none",
   display: "flex",
   alignItems: "center",

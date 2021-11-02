@@ -17,9 +17,8 @@ export const GET_REPOSITORIES = gql`
             primaryLanguage {
               name
             }
-            stargazers {
-              totalCount
-            }
+            stargazerCount
+            url
           }
         }
       }
@@ -35,9 +34,10 @@ export const GET_USERS = gql`
         node {
           ... on User {
             id
+            login
             name
             bio
-            company
+            url
           }
         }
       }

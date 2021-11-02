@@ -10,20 +10,16 @@ import UserLoginStatus from "../components/UserLoginStatus";
 import { GET_REPOSITORIES, GET_USERS } from "../../services/queries";
 
 //
-import useStyles, {
+import {
   Search,
   SearchIconWrapper,
   StyledInputBase,
-} from "../home/layout/HomeLayout.style";
+} from "./layout/Results.layout.style";
 import SearchIcon from "@mui/icons-material/Search";
-import * as H from "history";
 
 //
 interface Props {
   match: any;
-  location: H.Location;
-  history: H.History;
-  staticContext?: any;
 }
 
 enum TabValues {
@@ -31,12 +27,7 @@ enum TabValues {
   USERS = "USERS",
 }
 
-const ResultsController: React.FC<Props> = ({
-  match,
-  location,
-  history,
-  staticContext,
-}) => {
+const ResultsController: React.FC<Props> = ({ match }) => {
   const [value, setValue] = React.useState(TabValues.REPOSITORY);
   const [repositories, setRepositories] = React.useState<any[]>([]);
   const [users, setUsers] = React.useState<any[]>([]);
@@ -63,8 +54,6 @@ const ResultsController: React.FC<Props> = ({
   });
 
   React.useEffect(() => {
-    console.log({ repositoryData, loadingRepositories, repositoryError });
-    console.log({ userData, loadingUsers, userError });
     if (
       repositoryData?.search?.repositoryCount &&
       !repositoryData.loadingRepositories
@@ -79,10 +68,6 @@ const ResultsController: React.FC<Props> = ({
     }
   }, [repositoryData, userData]);
 
-  React.useEffect(() => {
-    console.log(searchTerm);
-  }, [searchTerm]);
-
   const handleChange = (
     event: React.SyntheticEvent<Element, Event>,
     newValue: any
@@ -93,6 +78,7 @@ const ResultsController: React.FC<Props> = ({
   const onchange = (e: any) => {
     setValue(e);
   };
+
   return (
     <>
       <NavBar
@@ -101,9 +87,6 @@ const ResultsController: React.FC<Props> = ({
             <Search>
               <StyledInputBase
                 inputProps={{ "aria-label": "search" }}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                }}
                 value={searchTerm}
               />
               <SearchIconWrapper>
@@ -116,7 +99,7 @@ const ResultsController: React.FC<Props> = ({
       />
       <Container
         style={{
-          height: "80vh",
+          height: "70vh",
           width: "60vw",
           display: "flex",
           backgroundColor: "#FAFBFC",
@@ -126,8 +109,9 @@ const ResultsController: React.FC<Props> = ({
           style={{
             maxHeight: "140px",
             minWidth: "280px",
-            display: "grid",
-            placeItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
             backgroundColor: "white",
             borderRadius: "3px",
           }}
@@ -141,11 +125,12 @@ const ResultsController: React.FC<Props> = ({
               justifyContent: "space-between",
               alignItems: "center",
               cursor: "pointer",
-              minHeight: "12px",
+              minHeight: "51px",
               minWidth: "220px",
-              backgroundColor: `${
-                value === TabValues.REPOSITORY ? "#F7F7F8" : "#FFFFF"
-              }`,
+              padding: "1px 10px",
+              margin: "0px 15px",
+              backgroundColor: `${value === TabValues.REPOSITORY ? "#F7F7F8" : ""
+                }`,
             }}
           >
             <Typography
@@ -169,11 +154,11 @@ const ResultsController: React.FC<Props> = ({
               justifyContent: "space-between",
               alignItems: "center",
               cursor: "pointer",
-              minHeight: "12px",
+              minHeight: "51px",
               minWidth: "220px",
-              backgroundColor: `${
-                value === TabValues.USERS ? "#F7F7F8" : "#FFFFF"
-              }`,
+              padding: "1px 10px",
+              margin: "0px 15px",
+              backgroundColor: `${value === TabValues.USERS ? "#F7F7F8" : ""}`,
             }}
           >
             <Typography

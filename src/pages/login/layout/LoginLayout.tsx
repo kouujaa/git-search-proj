@@ -1,25 +1,40 @@
-import * as React from "react";
+import React from "react";
 import GitHubLogin from "react-github-login";
+
+import { CircularProgress } from "@mui/material";
+
 import "./loginbutton.css";
+import useStyles from "./LoginLayout.style";
+import { CLILENT_ID } from "../../../utils/keys";
 
 interface Props {
   onSuccess: (response: any) => void;
   onFailure: (response: any) => void;
-  error?: string;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginLayout: React.FC<Props> = ({ onSuccess, onFailure, error }) => {
+const LoginLayout: React.FC<Props> = ({
+  onSuccess,
+  onFailure,
+  loading,
+  setLoading,
+}) => {
+  const classes = useStyles();
   return (
     <>
       <GitHubLogin
-        clientId="4f262cc9e20d3043da02"
+        clientId={CLILENT_ID}
         redirectUri={"http://localhost:3000"}
         onSuccess={onSuccess}
         onFailure={onFailure}
-        className={"Button"}
-        buttonText={"Login to Github"}
+        onRequest={() => {
+          setLoading(true);
+        }}
+        disabled={loading}
+        className={classes.button}
+        buttonText={loading ? "Please Wait..." : "Login to Github"}
       />
-      {}
     </>
   );
 };

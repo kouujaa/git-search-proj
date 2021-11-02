@@ -22,20 +22,9 @@ const HomeLayout: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   return (
-    <div
-      style={{
-        height: "50%",
-        width: "50%",
-        display: "flex",
-        marginTop: "-30vh",
-        flexDirection: "column",
-        justifyContent: "center",
-        rowGap: "30px",
-        alignItems: "center",
-      }}
-    >
+    <div className={classes.container}>
       <UserLoginStatus />
-      <div style={{ marginBottom: "-40px" }}>
+      <div className={classes.mb40}>
         <img
           src="/gitHub-Emblem.png"
           alt="gitHub_logo"
@@ -57,7 +46,7 @@ const HomeLayout: React.FC<Props> = ({
       </Search>
       <CustomButton onClick={onSearch}>
         <NavLink to={`/result/${searchTerm}`}>
-          <Typography variant="body1" sx={{ fontWeight: "bolder" }}>
+          <Typography variant="body1" className={classes.boldFont}>
             Search Github
           </Typography>
         </NavLink>

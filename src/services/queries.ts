@@ -44,3 +44,12 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+export const GET_VIEWER = gql`
+  query {
+    viewer {
+      login
+      avatarUrl
+    }
+  }
+`;

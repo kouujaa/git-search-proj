@@ -8,7 +8,6 @@ import useStyles, {
   SearchIconWrapper,
   StyledInputBase,
 } from "./HomeLayout.style";
-import UserLoginStatus from "../../components/UserLoginStatus";
 interface Props {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -23,7 +22,6 @@ const HomeLayout: React.FC<Props> = ({
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <UserLoginStatus />
       <div className={classes.mb40}>
         <img
           src="/gitHub-Emblem.png"

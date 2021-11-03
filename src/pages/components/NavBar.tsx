@@ -23,7 +23,8 @@ const NavBar: React.FC<Props> = ({ navComponents }) => {
   };
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
+    localStorage.clear()
+    window.location.href = '/';
   };
 
 

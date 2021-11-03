@@ -44,13 +44,13 @@ const HomeLayout: React.FC<Props> = ({
           <SearchIcon />
         </SearchIconWrapper>
       </Search>
-      <CustomButton onClick={onSearch}>
-        <NavLink to={`/result/${searchTerm}`}>
+      <NavLink to={`/result/${searchTerm}`} style={{ textDecoration: 'none' }}>
+        <CustomButton onClick={onSearch}>
           <Typography variant="body1" className={classes.boldFont}>
             Search Github
           </Typography>
-        </NavLink>
-      </CustomButton>
+        </CustomButton>{" "}
+      </NavLink>
     </div>
   );
 };

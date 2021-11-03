@@ -19,6 +19,7 @@ const useStyles = makeStyles({
   },
   boldFont: {
     fontWeight: "bolder",
+    textDecoration: "none",
   },
 });
 

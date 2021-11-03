@@ -29,7 +29,7 @@ const Main = () => {
           render={(props: Props) => {
             if (token) return <Redirect to="/search" />;
             //@ts-ignore
-            return <Login {...props}/>;
+            return <Login {...props} />;
           }}
         />
         <Route
@@ -37,8 +37,8 @@ const Main = () => {
           path="/result/:searchTerm"
           render={(props) => {
             if (!token) return <Redirect to="/login" />;
-             //@ts-ignore
-            return <Result {...props}/>;
+            //@ts-ignore
+            return <Result {...props} />;
           }}
         />
         <Route
@@ -46,22 +46,20 @@ const Main = () => {
           path="/search"
           render={(props) => {
             if (!token) return <Redirect to="/login" />;
-             //@ts-ignore
-            return <Search {...props}/>;
+            //@ts-ignore
+            return <Search {...props} />;
           }}
         />
-        <Route exact path="/" component={Login} />
         <Route
           exact
           path="/"
           render={(props) => {
-            if (!token) return <Login/>;
-              //@ts-ignore
-              return <Search {...props}/>
+            if (!token) return <Login />;
+            //@ts-ignore
+            return <Search {...props} />
           }}
         />
         <Route exact path="/seach" component={Search} />
-        <Redirect to="/login" />
       </Switch>
     </>
   );

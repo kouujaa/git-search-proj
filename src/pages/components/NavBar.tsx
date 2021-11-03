@@ -7,7 +7,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles"
 import SearchIcon from '@mui/icons-material/Search';
-import UserLoginStatus from './UserLoginStatus';
 
 interface Props {
   navComponents?: React.ReactNode;
@@ -28,7 +27,7 @@ const NavBar: React.FC<Props> = ({ navComponents }) => {
   };
 
 
-  const menuId = 'primary-search-account-menu';
+  const menuId = 'menu';
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -80,7 +79,7 @@ const NavBar: React.FC<Props> = ({ navComponents }) => {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <UserLoginStatus />
+
             </IconButton>
           </Box>
         </Toolbar>

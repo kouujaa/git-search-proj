@@ -8,10 +8,14 @@ interface Props {
   match: any;
   location: H.Location;
   history: H.History;
+  staticContext?: any;
 }
 
 const LoginController: React.FC<Props> = ({
+  match,
+  location,
   history,
+  staticContext,
 }) => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
@@ -20,7 +24,7 @@ const LoginController: React.FC<Props> = ({
     const { access_token, token_type } = res?.data;
     access_token && localStorage.setItem("access_token", access_token);
     token_type && localStorage.setItem("token_type", token_type);
-    history.push?.("/search");
+    window.location.href = "/search";
   };
 
   const onFailure = React.useCallback((response: any) => {

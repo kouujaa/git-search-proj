@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
@@ -8,6 +8,7 @@ import useStyles, {
   SearchIconWrapper,
   StyledInputBase,
 } from "./HomeLayout.style";
+import UserLoginStatus from "../../components/UserLoginStatus";
 interface Props {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -21,35 +22,45 @@ const HomeLayout: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   return (
-    <div className={classes.container}>
-      <div className={classes.mb40}>
-        <img
-          src="/gitHub-Emblem.png"
-          alt="gitHub_logo"
-          height={120}
-          width={205}
-        />
+    <>
+      <div style={{
+        position: 'absolute',
+        top: '0px',
+        right: '0px'
+      }}><UserLoginStatus /></div>
+      <div className={classes.container}>
+        <div className={classes.mb40}>
+          <img
+            src="/gitHub-Emblem.png"
+            alt="gitHub_logo"
+            height={120}
+            width={205}
+          />
+        </div>
+        <Search>
+          <StyledInputBase
+            inputProps={{ "aria-label": "search" }}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+            value={searchTerm}
+          />
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+        </Search>
+        <NavLink
+          to={`/result/${searchTerm}`}
+          style={{ textDecoration: "none" }}
+        >
+          <CustomButton onClick={onSearch}>
+            <Typography variant="body1" className={classes.boldFont}>
+              Search Github
+            </Typography>
+          </CustomButton>{" "}
+        </NavLink>
       </div>
-      <Search>
-        <StyledInputBase
-          inputProps={{ "aria-label": "search" }}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-          }}
-          value={searchTerm}
-        />
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-      </Search>
-      <NavLink to={`/result/${searchTerm}`} style={{ textDecoration: 'none' }}>
-        <CustomButton onClick={onSearch}>
-          <Typography variant="body1" className={classes.boldFont}>
-            Search Github
-          </Typography>
-        </CustomButton>{" "}
-      </NavLink>
-    </div>
+    </>
   );
 };
 

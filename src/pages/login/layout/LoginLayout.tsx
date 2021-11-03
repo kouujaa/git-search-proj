@@ -1,8 +1,6 @@
 import React from "react";
 import GitHubLogin from "react-github-login";
 
-import { CircularProgress } from "@mui/material";
-
 import "./loginbutton.css";
 import useStyles from "./LoginLayout.style";
 import { CLILENT_ID } from "../../../utils/keys";

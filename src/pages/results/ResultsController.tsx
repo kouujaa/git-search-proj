@@ -33,22 +33,17 @@ const ResultsController: React.FC<Props> = ({ match }) => {
   const [users, setUsers] = React.useState<any[]>([]);
   const [repositoryCount, setRepositoryCount] = React.useState<number>(0);
   const [usersCount, setUserCount] = React.useState<number>(0);
-  const [searchTerms, setSearchTerm] = React.useState<string>("");
   const { searchTerm } = match.params;
 
   const {
     data: repositoryData,
-    loading: loadingRepositories,
-    error: repositoryError,
-    refetch: refetchRepositories,
+
   } = useQuery(GET_REPOSITORIES, {
     variables: { queryString: searchTerm },
   });
   const {
     data: userData,
-    loading: loadingUsers,
-    error: userError,
-    refetch: refetchUsers,
+
   } = useQuery(GET_USERS, {
     variables: { queryString: searchTerm },
   });
@@ -67,13 +62,6 @@ const ResultsController: React.FC<Props> = ({ match }) => {
       userData && setUserCount(userData.search.userCount);
     }
   }, [repositoryData, userData]);
-
-  const handleChange = (
-    event: React.SyntheticEvent<Element, Event>,
-    newValue: any
-  ) => {
-    setValue(newValue);
-  };
 
   const onchange = (e: any) => {
     setValue(e);

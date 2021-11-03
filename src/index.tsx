@@ -8,14 +8,13 @@ import {
   InMemoryCache,
   ApolloProvider,
   createHttpLink,
-  useQuery,
-  gql,
 } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context'
+import './fonts/DM_sans/DMSans-Medium.ttf'
 
 const httpLink = createHttpLink({
   uri: "https://api.github.com/graphql",
-}); 
+});
 
 const authLink = setContext((_, { headers }) => {
   const accessToken = localStorage.getItem('access_token');

@@ -24,9 +24,10 @@ export const ResultsList: React.FC<Props> = ({ type, data }) => {
               lineHeight: "30px",
               fontWeight: 700,
               marginBottom: "15px",
+              textTransform: 'lowercase',
             }}
           >
-            {`${data.length} ${type}`}
+            {`${data.length} ${type} results`}
           </Typography>
         </div>
         {data

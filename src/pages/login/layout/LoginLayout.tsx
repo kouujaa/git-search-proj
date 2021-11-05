@@ -5,7 +5,7 @@ import "./loginbutton.css";
 import useStyles from "./LoginLayout.style";
 import { CLILENT_ID } from "../../../utils/keys";
 
-interface Props {
+export interface Props {
   onSuccess: (response: any) => void;
   onFailure: (response: any) => void;
   loading: boolean;
@@ -20,7 +20,7 @@ const LoginLayout: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   return (
-    <>
+    <div data-testid="loginBtn">
       <GitHubLogin
         clientId={CLILENT_ID}
         redirectUri={"http://localhost:3000"}
@@ -31,9 +31,9 @@ const LoginLayout: React.FC<Props> = ({
         }}
         disabled={loading}
         className={classes.button}
-        buttonText={loading ? "Please Wait..." : "Login to Github"}
+        buttonText={loading ? "Authenticating..." : "Login to Github"}
       />
-    </>
+    </div>
   );
 };
 

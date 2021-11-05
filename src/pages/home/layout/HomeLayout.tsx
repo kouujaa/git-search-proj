@@ -1,33 +1,27 @@
 import React from "react";
-import { Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import SearchIcon from "@mui/icons-material/Search";
-import useStyles, {
-  CustomButton,
-  Search,
-  SearchIconWrapper,
-  StyledInputBase,
-} from "./HomeLayout.style";
-import UserLoginStatus from "../../components/UserLoginStatus";
-interface Props {
+import NewSearch from "../../components/NewSearch";
+import Button from "../../components/Button";
+import VisitorOptions from "../../components/VisitorOptions";
+import useStyles from "./HomeLayout.style";
+export interface Props {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-  onSearch: () => void;
 }
 
-const HomeLayout: React.FC<Props> = ({
-  searchTerm,
-  setSearchTerm,
-  onSearch,
-}) => {
+const HomeLayout: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
   const classes = useStyles();
   return (
     <>
-      <div style={{
-        position: 'absolute',
-        top: '0px',
-        right: '0px'
-      }}><UserLoginStatus /></div>
+      <div
+        style={{
+          position: "absolute",
+          top: "0px",
+          right: "0px",
+        }}
+      >
+        <VisitorOptions onLogOut={() => {}} />
+      </div>
       <div className={classes.container}>
         <div className={classes.mb40}>
           <img
@@ -37,27 +31,12 @@ const HomeLayout: React.FC<Props> = ({
             width={205}
           />
         </div>
-        <Search>
-          <StyledInputBase
-            inputProps={{ "aria-label": "search" }}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-            value={searchTerm}
-          />
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-        </Search>
+        <NewSearch data-testid="searchInput" searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <NavLink
           to={`/result/${searchTerm}`}
           style={{ textDecoration: "none" }}
         >
-          <CustomButton onClick={onSearch}>
-            <Typography variant="body1" className={classes.boldFont}>
-              Search Github
-            </Typography>
-          </CustomButton>{" "}
+          <Button data-testid="searchBtn" title={"Search Github"} height={"40px"} width={"179px"} />
         </NavLink>
       </div>
     </>

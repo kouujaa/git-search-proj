@@ -1,25 +1,21 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
+import Box from "@mui/material/Box";
+import numeral from "numeral";
+import VisitorOptions from "../components/VisitorOptions";
+import NewSearch from "../components/NewSearch";
 
 import Chip from "@mui/material/Chip";
 import { Container, Typography } from "@mui/material";
 
 import NavBar from "../components/NavBar";
 import ResultsLayout from "./layout/ResultsLayout";
-import UserLoginStatus from "../components/UserLoginStatus";
-import { GET_REPOSITORIES, GET_USERS } from "../../services/queries";
 
-//
-import {
-  Search,
-  SearchIconWrapper,
-  StyledInputBase,
-} from "./layout/Results.layout.style";
-import SearchIcon from "@mui/icons-material/Search";
-
-//
 interface Props {
   match: any;
+  searchTerm: any;
+  setSearchTerm: any;
+  repositoryData: any;
+  userData: any;
 }
 
 enum TabValues {
@@ -27,28 +23,21 @@ enum TabValues {
   USERS = "USERS",
 }
 
-const ResultsController: React.FC<Props> = ({ match }) => {
+const ResultsController: React.FC<Props> = ({
+  match,
+  searchTerm,
+  setSearchTerm,
+  repositoryData,
+  userData,
+}) => {
   const [value, setValue] = React.useState(TabValues.REPOSITORY);
   const [repositories, setRepositories] = React.useState<any[]>([]);
   const [users, setUsers] = React.useState<any[]>([]);
   const [repositoryCount, setRepositoryCount] = React.useState<number>(0);
   const [usersCount, setUserCount] = React.useState<number>(0);
-  const { searchTerm } = match.params;
-
-  const {
-    data: repositoryData,
-
-  } = useQuery(GET_REPOSITORIES, {
-    variables: { queryString: searchTerm },
-  });
-  const {
-    data: userData,
-
-  } = useQuery(GET_USERS, {
-    variables: { queryString: searchTerm },
-  });
 
   React.useEffect(() => {
+    setSearchTerm(match?.params);
     if (
       repositoryData?.search?.repositoryCount &&
       !repositoryData.loadingRepositories
@@ -61,7 +50,7 @@ const ResultsController: React.FC<Props> = ({ match }) => {
       userData && setUsers(userData.search.edges);
       userData && setUserCount(userData.search.userCount);
     }
-  }, [repositoryData, userData]);
+  },[]);
 
   const onchange = (e: any) => {
     setValue(e);
@@ -71,19 +60,20 @@ const ResultsController: React.FC<Props> = ({ match }) => {
     <>
       <NavBar
         navComponents={
-          <div style={{ display: "flex" }}>
-            <Search>
-              <StyledInputBase
-                inputProps={{ "aria-label": "search" }}
-                value={searchTerm}
-              />
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-            </Search>
-            <UserLoginStatus />
-          </div>
-        }
+        <>
+        <Box sx={{ flexGrow: 1 }} />
+          <NewSearch
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            width={380}
+            height={"32px"}
+            placeholder={"Search"}
+          />
+          <Box sx={{ flexGrow: 1 }} />
+          <VisitorOptions onLogOut={() => {}}  data-testid="viewerLoginComp"/>
+        </>}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
       />
       <Container
         style={{
@@ -117,8 +107,9 @@ const ResultsController: React.FC<Props> = ({ match }) => {
               minWidth: "220px",
               padding: "1px 10px",
               margin: "0px 15px",
-              backgroundColor: `${value === TabValues.REPOSITORY ? "#F7F7F8" : ""
-                }`,
+              backgroundColor: `${
+                value === TabValues.REPOSITORY ? "#F7F7F8" : ""
+              }`,
             }}
           >
             <Typography
@@ -131,7 +122,7 @@ const ResultsController: React.FC<Props> = ({ match }) => {
             >
               {TabValues.REPOSITORY}
             </Typography>
-            <Chip label={repositoryCount} />
+            <Chip label={numeral(repositoryCount).format("0a")} />
           </div>
           <div
             onClick={() => {
@@ -159,7 +150,7 @@ const ResultsController: React.FC<Props> = ({ match }) => {
             >
               {TabValues.USERS}
             </Typography>
-            <Chip label={usersCount} />
+            <Chip label={numeral(usersCount).format("0a")} />
           </div>
         </div>
         {value === TabValues.REPOSITORY && (

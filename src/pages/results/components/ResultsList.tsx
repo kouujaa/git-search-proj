@@ -1,7 +1,7 @@
 import React from "react";
-import Pagination from "@mui/material/Pagination";
 import { ResultRow } from "./ResultRow";
 import { Container, Typography } from "@mui/material";
+import CustomPagination from "../../components/CustomPagination";
 
 interface Props {
   type: string;
@@ -24,7 +24,7 @@ export const ResultsList: React.FC<Props> = ({ type, data }) => {
               lineHeight: "30px",
               fontWeight: 700,
               marginBottom: "15px",
-              textTransform: 'lowercase',
+              textTransform: "lowercase",
             }}
           >
             {`${data.length} ${type} results`}
@@ -35,12 +35,9 @@ export const ResultsList: React.FC<Props> = ({ type, data }) => {
           .map((datum: any) => (
             <ResultRow data={datum} type={type} key={datum.node.id} />
           ))}
-      </div>
-      <div style={{ float: "right" }}>
-        <Pagination
-          count={Math.ceil(data.length / 10)}
-          shape="rounded"
-          onChange={onNext}
+        <CustomPagination
+          onNext={onNext}
+          length={Math.ceil(data.length / 10)}
         />
       </div>
     </Container>

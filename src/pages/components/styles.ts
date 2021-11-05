@@ -5,6 +5,39 @@ import { Button } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 
 const useStyles = makeStyles({
+  root: {
+    float: "right",
+    "& .MuiPaginationItem-root": {
+      color: "#B0B7C3",
+    },
+    "& > *": {
+      marginTop: 2,
+    },
+    "& .MuiPaginationItem-icon": {
+      width: "30px",
+      height: "30px",
+      color: "white",
+      borderRadius: "10px",
+      backgroundColor: "black",
+    },
+    "& .Mui-selected": {
+      backgroundColor: "#162a2a00",
+      color: "black",
+    },
+  },
+  vistor_Box: {
+    display: "flex",
+    alignItems: "center",
+    textAlign: "center",
+    margin: "10px",
+    marginRight: 15,
+  },
+  visitor_login: {
+    minWidth: 100,
+    color: "black",
+    marginLeft: "-12px",
+  },
+  visitor_color: { color: "#FF1733" },
   bgColor: {
     backgroundColor: "#FFFFFF",
   },
@@ -101,41 +134,4 @@ export const StyledPagination = styled(Pagination)(({ theme }) => ({
     },
   },
 }));
-
 export default useStyles;
-
-// import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Pagination from "@material-ui/lab/Pagination";
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//       "& .MuiPaginationItem-root": {
-//         color: "#B0B7C3"
-//       },
-//     "& > *": {
-//       marginTop: theme.spacing(2)
-//     },
-//     "& .MuiPaginationItem-icon": {
-//       width: '30px',
-//       height: '30px',
-//       color: "white",
-//       borderRadius: '10px',
-//       backgroundColor: "black"
-//     },
-//     "& .Mui-selected": {
-//       backgroundColor: "#162a2a00",
-//       color:"black",
-//     },
-
-//   }
-// }));
-
-// export default function BasicPagination() {
-//   const classes = useStyles();
-//   return (
-//     <div className={classes.root}>
-//       <Pagination shape="rounded" count={10} />
-//     </div>
-//   );
-// }

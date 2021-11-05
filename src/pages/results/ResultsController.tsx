@@ -9,11 +9,12 @@ import { Container, Typography } from "@mui/material";
 
 import NavBar from "../components/NavBar";
 import ResultsLayout from "./layout/ResultsLayout";
+import useStyles from "./layout/Results.layout.style";
 
 interface Props {
   match: any;
-  searchTerm: any;
-  setSearchTerm: any;
+  searchTerm: string;
+  setSearchTerm: () => void;
   repositoryData: any;
   userData: any;
 }
@@ -30,63 +31,40 @@ const ResultsController: React.FC<Props> = ({
   repositoryData,
   userData,
 }) => {
-  const [value, setValue] = React.useState(TabValues.REPOSITORY);
+  const [value, setValue] = React.useState<string>(TabValues.REPOSITORY);
 
-  const onchange = (e: any) => {
+  const onchange = (e: string) => {
     setValue(e);
   };
-
+  const classes = useStyles();
   return (
     <>
       <NavBar
         navComponents={
-        <>
-        <Box sx={{ flexGrow: 1 }} />
-          <NewSearch
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            width={380}
-            height={"32px"}
-            placeholder={"Search"}
-          />
-          <Box sx={{ flexGrow: 1 }} />
-          <VisitorOptions onLogOut={() => {}}  data-testid="viewerLoginComp"/>
-        </>}
+          <>
+            <Box sx={{ flexGrow: 1 }} />
+            <NewSearch
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              width={380}
+              height={"32px"}
+              placeholder={"Search"}
+            />
+            <Box sx={{ flexGrow: 1 }} />
+            <VisitorOptions onLogOut={() => {}} data-testid="viewerLoginComp" />
+          </>
+        }
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />
-      <Container
-        style={{
-          height: "70vh",
-          width: "60vw",
-          display: "flex",
-          backgroundColor: "#FAFBFC",
-        }}
-      >
-        <div
-          style={{
-            maxHeight: "140px",
-            minWidth: "280px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            backgroundColor: "white",
-            borderRadius: "3px",
-          }}
-        >
+      <Container className={classes.container}>
+        <div className={classes.aside}>
           <div
             onClick={() => {
               onchange(TabValues.REPOSITORY);
             }}
+            className={classes.asideDiv}
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
-              minHeight: "51px",
-              minWidth: "220px",
-              padding: "1px 10px",
-              margin: "0px 15px",
               backgroundColor: `${
                 value === TabValues.REPOSITORY ? "#F7F7F8" : ""
               }`,
@@ -102,42 +80,38 @@ const ResultsController: React.FC<Props> = ({
             >
               {TabValues.REPOSITORY}
             </Typography>
-            <Chip label={numeral(repositoryData?.search?.repositoryCount).format("0a")} />
+            <Chip
+              label={numeral(repositoryData?.search?.repositoryCount).format(
+                "0a"
+              )}
+            />
           </div>
           <div
             onClick={() => {
               onchange(TabValues.USERS);
             }}
+            className={classes.asideDiv}
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
-              minHeight: "51px",
-              minWidth: "220px",
-              padding: "1px 10px",
-              margin: "0px 15px",
               backgroundColor: `${value === TabValues.USERS ? "#F7F7F8" : ""}`,
             }}
           >
-            <Typography
-              sx={{
-                fontWeight: 400,
-                fontSize: "14px",
-                lineHeight: "18.23px",
-                color: "#5c5c5c",
-              }}
-            >
+            <Typography className={classes.asideDivText}>
               {TabValues.USERS}
             </Typography>
             <Chip label={numeral(userData?.search?.userCount).format("0a")} />
           </div>
         </div>
         {value === TabValues.REPOSITORY && (
-          <ResultsLayout type={TabValues.REPOSITORY} data={repositoryData?.search?.edges } />
+          <ResultsLayout
+            type={TabValues.REPOSITORY}
+            data={repositoryData?.search?.edges}
+          />
         )}
         {value === TabValues.USERS && (
-          <ResultsLayout type={TabValues.USERS} data={userData?.search?.edges} />
+          <ResultsLayout
+            type={TabValues.USERS}
+            data={userData?.search?.edges}
+          />
         )}
       </Container>
     </>

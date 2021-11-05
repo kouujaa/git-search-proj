@@ -24,14 +24,20 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     alignItems: "center",
     cursor: "pointer",
-    minHeight: "15px",
+    minHeight: "51px",
     minWidth: "220px",
+    padding: "1px 10px",
+    margin: "0px 15px",
   },
   asideDivText: {
     fontWeight: 400,
     fontSize: "14px",
     lineHeight: "18.23px",
     color: "#5c5c5c",
+  },
+  waiting_position: {
+    color: "black",
+    marginLeft: "20px",
   },
 });
 export default useStyles;

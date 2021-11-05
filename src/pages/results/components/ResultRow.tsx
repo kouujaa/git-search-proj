@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import { TARGET } from "../../../utils/constants";
 import { formatTimeAgo } from "../../../utils/time";
 import Tooltip from "@mui/material/Tooltip";
+import useStyle from "./styles";
 
 interface Props {
   repositories?: number;
@@ -17,51 +18,30 @@ export const ResultRow: React.FC<Props> = ({ data, type }) => {
   const gotoURL = (URI: string) => {
     window.location.href = URI;
   };
+  const classes = useStyle();
   return (
     <>
       {type === TARGET.REPOSITORY ? (
         <Tooltip title="Click To Visit Repo Page" placement="top-end">
           <Card
-            sx={{
-              minWidth: 680,
-              marginBottom: "20px",
-              borderRadius: "3px",
-              backgroundColor: "#FFFFF",
-              minHeight: "98px",
-              cursor: "pointer",
-            }}
+            className={classes.repoCardComponent}
             onClick={() => {
               gotoURL(data?.node?.url);
             }}
           >
             <CardContent>
-              <Typography
-                sx={{ fontSize: 16, fontWeight: 700, color: "#00000" }}
-                component="div"
-              >
+              <Typography className={classes.textName} component="div">
                 {data?.node?.name}
               </Typography>
               <Typography
-                sx={{
-                  fontSize: 14,
-                  fontWeight: 400,
-                  color: "#91929E",
-                  lineHeight: "18.23px",
-                }}
+                className={classes.textTitle}
                 color="text.secondary"
                 gutterBottom
               >
                 {data?.node?.description}
               </Typography>
               <Typography
-                sx={{
-                  fontSize: 12,
-                  fontWeight: 400,
-                  color: "#91929E",
-                  lineHeight: "15.62px",
-                  maxWidth: "445px",
-                  textOverflow: "ellipsis",
-                }}
+                className={classes.textFootnote}
                 color="text.secondary"
               >
                 {data?.node?.stargazerCount} Stars |{" "}
@@ -76,31 +56,16 @@ export const ResultRow: React.FC<Props> = ({ data, type }) => {
       {type === TARGET.USERS ? (
         <Tooltip title="Click To Visit User Profile Page" placement="top-end">
           <Card
-            sx={{
-              minWidth: 580,
-              marginBottom: "20px",
-              borderRadius: "3px",
-              backgroundColor: "#FFFFF",
-              minHeight: "70px",
-              cursor: "pointer",
-            }}
+            className={classes.userCardComponent}
             onClick={() => {
               gotoURL(data?.node?.url);
             }}
           >
             <CardContent>
-              <Typography
-                sx={{ fontSize: 16, fontWeight: 700, color: "#00000" }}
-                component="div"
-              >
+              <Typography className={classes.textName} component="div">
                 {data?.node?.name} / {data?.node?.login}
                 <Typography
-                  sx={{
-                    fontSize: 14,
-                    fontWeight: 400,
-                    color: "#91929E",
-                    lineHeight: "18.23px",
-                  }}
+                  className={classes.textTitle}
                   color="text.secondary"
                   gutterBottom
                 >
@@ -108,14 +73,7 @@ export const ResultRow: React.FC<Props> = ({ data, type }) => {
                 </Typography>
               </Typography>
               <Typography
-                sx={{
-                  fontSize: 12,
-                  fontWeight: 400,
-                  color: "#91929E",
-                  lineHeight: "15.62px",
-                  maxWidth: "445px",
-                  textOverflow: "ellipsis",
-                }}
+                className={classes.textFootnote}
                 color="text.secondary"
               >
                 {data?.node?.bio}

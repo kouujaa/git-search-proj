@@ -2,6 +2,7 @@ import React from "react";
 import { ResultRow } from "./ResultRow";
 import { Container, Typography } from "@mui/material";
 import CustomPagination from "../../components/CustomPagination";
+import useStyle from "./styles";
 
 interface Props {
   type: string;
@@ -14,19 +15,12 @@ export const ResultsList: React.FC<Props> = ({ type, data }) => {
   const onNext = (e: React.ChangeEvent<any>, page: number) => {
     setCurrentPage(page);
   };
+  const classes = useStyle();
   return (
     <Container>
-      <div style={{ maxHeight: "80vh", overflow: "scroll" }}>
+      <div className={classes.resultsList}>
         <div>
-          <Typography
-            sx={{
-              fontSize: "20px",
-              lineHeight: "30px",
-              fontWeight: 700,
-              marginBottom: "15px",
-              textTransform: "lowercase",
-            }}
-          >
+          <Typography className={classes.resultListText}>
             {`${data.length} ${type} results`}
           </Typography>
         </div>

@@ -1,16 +1,22 @@
 import React from "react";
 import Pagination from "@mui/material/Pagination";
-// import StyledPagination from "./styles"
+import useStyles from "./styles";
 
 export interface Props {
-  onNext: any;
+  onNext: (e: React.ChangeEvent<any>, page: number) => any;
   length: number;
 }
 
 const CustomPagination: React.FC<Props> = ({ onNext, length }) => {
+  const classes = useStyles();
   return (
-    <div style={{ float: "right" }} data-testid="paginationComp">
-      <Pagination count={length} shape="rounded" onChange={onNext} />
+    <div data-testid="paginationComp">
+      <Pagination
+        count={length}
+        shape="rounded"
+        onChange={onNext}
+        className={classes.root}
+      />
     </div>
   );
 };

@@ -1,12 +1,19 @@
-import React from 'react'
-import withLoadable from './utils/withLoadable'
-// import useQuerydata from './hooks/useQueryhook';
-const Main = withLoadable(import('./components/root-router/main-router'))
+import React from "react";
+import withLoadable from "./utils/withLoadable";
+const Main = withLoadable(import("./components/root-router/main-router"));
 
-function App(props: any) {
+function App() {
   return (
-    <main style={{ display: 'grid', placeItems: 'center', height: '100vh', width: '100vw', backgroundColor: "#FAFBFC" }}>
-        <Main />
+    <main
+      style={{
+        display: "grid",
+        placeItems: "center",
+        height: "100vh",
+        width: "100vw",
+        backgroundColor: "#FAFBFC",
+      }}
+    >
+      <Main />
     </main>
   );
 }

@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Logout from "@mui/icons-material/Logout";
 import { GET_VIEWER } from "../../services/queries";
+import useStyles from "./styles";
 
 export interface Props {
   onLogOut: () => void;
@@ -31,19 +32,10 @@ const VisitorOptions: React.FC<Props> = ({ onLogOut }) => {
     localStorage.clear();
     window.location.href = "/";
   };
-
+  const classes = useStyles();
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          textAlign: "center",
-          margin: "10px",
-          marginRight: 15,
-        }}
-        data-testid="viewerBtn"
-      >
+      <Box className={classes.vistor_Box} data-testid="viewerBtn">
         <Avatar
           data-testid="avatarBtn"
           alt="pimg"
@@ -51,7 +43,7 @@ const VisitorOptions: React.FC<Props> = ({ onLogOut }) => {
         />
         <Typography
           data-testid="viewerNamebtn"
-          sx={{ minWidth: 100, color: "black", marginLeft: "-12px" }}
+          className={classes.visitor_login}
         >
           {viewerData?.viewer?.login}
         </Typography>
@@ -102,9 +94,9 @@ const VisitorOptions: React.FC<Props> = ({ onLogOut }) => {
       >
         <MenuItem onClick={handleMenuClose}>
           <ListItemIcon>
-            <Logout fontSize="small" style={{ color: "#FF1733" }} />
+            <Logout fontSize="small" className={classes.visitor_color} />
           </ListItemIcon>
-          <span style={{ color: "#FF1733" }}>Logout</span>
+          <span className={classes.visitor_color}>Logout</span>
         </MenuItem>
       </Menu>
     </>

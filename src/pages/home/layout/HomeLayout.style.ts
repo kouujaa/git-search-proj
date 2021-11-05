@@ -21,6 +21,11 @@ const useStyles = makeStyles({
     fontWeight: "bolder",
     textDecoration: "none",
   },
+  vistor_fix: {
+    position: "absolute",
+    top: "0px",
+    right: "0px",
+  },
 });
 
 export const CustomButton = styled(Button)({

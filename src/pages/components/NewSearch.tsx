@@ -4,10 +4,9 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { NavLink } from "react-router-dom";
-
 export interface Props {
-  searchTerm: any;
-  setSearchTerm: any;
+  searchTerm: string;
+  setSearchTerm: (e: string) => void;
   width?: number;
   height?: string;
   placeholder?: string;
@@ -46,7 +45,7 @@ const NewSearch: React.FC<Props> = ({
         onChange={(e) => {
           setSearchTerm(e.target.value);
         }}
-        value={searchTerm.searchTerm}
+        value={searchTerm}
         inputProps={{ "aria-label": "search gitHub" }}
         placeholder={placeholder}
       />

@@ -1,9 +1,8 @@
 import React from "react";
 import HomeLayout from "./layout/HomeLayout";
 interface Props {
-  match: any;
-  searchTerm: any;
-  setSearchTerm: any;
+  searchTerm: string;
+  setSearchTerm: () => void;
 }
 
 const HomeController: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {

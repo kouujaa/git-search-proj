@@ -1,6 +1,7 @@
 import React from "react";
 import { ResultsList } from "../components/ResultsList";
 import { CircularProgress } from "@mui/material";
+import useStyles from "./Results.layout.style";
 
 interface Props {
   type: string;
@@ -8,7 +9,16 @@ interface Props {
 }
 
 const ResultsLayout: React.FC<Props> = ({ type, data }) => {
-  return <>{data?.length ? <ResultsList type={type} data={data} /> : <CircularProgress size={20} sx={{color: 'black', marginLeft: '20px'}} />}</>;
+  const classes = useStyles();
+  return (
+    <>
+      {data?.length ? (
+        <ResultsList type={type} data={data} />
+      ) : (
+        <CircularProgress size={20} className={classes.waiting_position} />
+      )}
+    </>
+  );
 };
 
 export default ResultsLayout;

@@ -19,6 +19,7 @@ const useStyles = makeStyles({
     lineHeight: "30px",
     fontWeight: 700,
     marginBottom: "15px",
+    textTransform: "lowercase",
   },
   floatRight: {
     float: "right",

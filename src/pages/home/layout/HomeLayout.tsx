@@ -13,13 +13,7 @@ const HomeLayout: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
   const classes = useStyles();
   return (
     <>
-      <div
-        style={{
-          position: "absolute",
-          top: "0px",
-          right: "0px",
-        }}
-      >
+      <div className={classes.vistor_fix}>
         <VisitorOptions onLogOut={() => {}} />
       </div>
       <div className={classes.container}>
@@ -31,12 +25,21 @@ const HomeLayout: React.FC<Props> = ({ searchTerm, setSearchTerm }) => {
             width={205}
           />
         </div>
-        <NewSearch data-testid="searchInput" searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <NewSearch
+          data-testid="searchInput"
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
         <NavLink
           to={`/result/${searchTerm}`}
           style={{ textDecoration: "none" }}
         >
-          <Button data-testid="searchBtn" title={"Search Github"} height={"40px"} width={"179px"} />
+          <Button
+            data-testid="searchBtn"
+            title={"Search Github"}
+            height={"40px"}
+            width={"179px"}
+          />
         </NavLink>
       </div>
     </>

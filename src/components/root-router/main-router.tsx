@@ -15,19 +15,19 @@ interface Props {
   staticContext?: any;
 }
 
-const Main = ( props:Props) => {
-const [token, setToken] = React.useState<string | null>("");
-const [searchTerm, setSearchTerm] = React.useState<string>("");
-const { data: repositoryData } = useQuery(GET_REPOSITORIES, {
-  variables: { queryString: searchTerm },
-});
-const { data: userData } = useQuery(GET_USERS, {
-  variables: { queryString: searchTerm },
-});
+const Main = (props: Props) => {
+  const [token, setToken] = React.useState<string | null>("");
+  const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const { data: repositoryData } = useQuery(GET_REPOSITORIES, {
+    variables: { queryString: searchTerm },
+  });
+  const { data: userData } = useQuery(GET_USERS, {
+    variables: { queryString: searchTerm },
+  });
 
-React.useEffect(() => {
-  setToken(localStorage.getItem("access_token"));
-}, []);
+  React.useEffect(() => {
+    setToken(localStorage.getItem("access_token"));
+  }, []);
   return (
     <>
       <Switch>

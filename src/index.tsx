@@ -9,21 +9,21 @@ import {
   ApolloProvider,
   createHttpLink,
 } from "@apollo/client";
-import { setContext } from '@apollo/client/link/context'
-import './fonts/DM_sans/DMSans-Medium.ttf'
+import { setContext } from "@apollo/client/link/context";
+import "./fonts/DM_sans/DMSans-Medium.ttf";
 
 const httpLink = createHttpLink({
   uri: "https://api.github.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
-  const accessToken = localStorage.getItem('access_token');
+  const accessToken = localStorage.getItem("access_token");
   return {
     headers: {
       ...headers,
       authorization: accessToken ? `Bearer ${accessToken}` : "",
-    }
-  }
+    },
+  };
 });
 
 const client = new ApolloClient({
@@ -31,23 +31,21 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {
-      fetchPolicy: 'cache-and-network',
-      errorPolicy: 'ignore',
+      fetchPolicy: "cache-and-network",
+      errorPolicy: "ignore",
     },
     query: {
-      fetchPolicy: 'cache-first',
-      errorPolicy: 'all',
+      fetchPolicy: "cache-first",
+      errorPolicy: "all",
     },
   },
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ApolloProvider client={client}>
-        <App />
-      </ApolloProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );

@@ -31,26 +31,6 @@ const ResultsController: React.FC<Props> = ({
   userData,
 }) => {
   const [value, setValue] = React.useState(TabValues.REPOSITORY);
-  const [repositories, setRepositories] = React.useState<any[]>([]);
-  const [users, setUsers] = React.useState<any[]>([]);
-  const [repositoryCount, setRepositoryCount] = React.useState<number>(0);
-  const [usersCount, setUserCount] = React.useState<number>(0);
-
-  React.useEffect(() => {
-    setSearchTerm(match?.params);
-    if (
-      repositoryData?.search?.repositoryCount &&
-      !repositoryData.loadingRepositories
-    ) {
-      repositoryData && setRepositories(repositoryData.search.edges);
-      repositoryData &&
-        setRepositoryCount(repositoryData.search.repositoryCount);
-    }
-    if (userData?.search?.userCount && !userData.loadingUsers) {
-      userData && setUsers(userData.search.edges);
-      userData && setUserCount(userData.search.userCount);
-    }
-  },[]);
 
   const onchange = (e: any) => {
     setValue(e);
@@ -122,7 +102,7 @@ const ResultsController: React.FC<Props> = ({
             >
               {TabValues.REPOSITORY}
             </Typography>
-            <Chip label={numeral(repositoryCount).format("0a")} />
+            <Chip label={numeral(repositoryData?.search?.repositoryCount).format("0a")} />
           </div>
           <div
             onClick={() => {
@@ -150,14 +130,14 @@ const ResultsController: React.FC<Props> = ({
             >
               {TabValues.USERS}
             </Typography>
-            <Chip label={numeral(usersCount).format("0a")} />
+            <Chip label={numeral(userData?.search?.userCount).format("0a")} />
           </div>
         </div>
         {value === TabValues.REPOSITORY && (
-          <ResultsLayout type={TabValues.REPOSITORY} data={repositories} />
+          <ResultsLayout type={TabValues.REPOSITORY} data={repositoryData?.search?.edges } />
         )}
         {value === TabValues.USERS && (
-          <ResultsLayout type={TabValues.USERS} data={users} />
+          <ResultsLayout type={TabValues.USERS} data={userData?.search?.edges} />
         )}
       </Container>
     </>

@@ -15,35 +15,22 @@ interface Props {
   staticContext?: any;
 }
 
-const Main = () => {
-  const [token, setToken] = React.useState<string | null>("");
+const Main = ( props:Props) => {
+const [token, setToken] = React.useState<string | null>("");
+const [searchTerm, setSearchTerm] = React.useState<string>("");
+const { data: repositoryData } = useQuery(GET_REPOSITORIES, {
+  variables: { queryString: searchTerm },
+});
+const { data: userData } = useQuery(GET_USERS, {
+  variables: { queryString: searchTerm },
+});
 
-  //
-  const [searchTerm, setSearchTerm] = React.useState<string>("");
-  const { data: repositoryData } = useQuery(GET_REPOSITORIES, {
-    variables: { queryString: searchTerm },
-  });
-  const { data: userData } = useQuery(GET_USERS, {
-    variables: { queryString: searchTerm },
-  });
-
-
-  React.useEffect(() => {
-    setToken(localStorage.getItem("access_token"));
-  }, []);
-
+React.useEffect(() => {
+  setToken(localStorage.getItem("access_token"));
+}, []);
   return (
     <>
       <Switch>
-        <Route
-          exact
-          path="/login"
-          render={(props: Props) => {
-            if (token) return <Redirect to="/search" />;
-            //@ts-ignore
-            return <Login {...props} />;
-          }}
-        />
         <Route
           exact
           path="/result/:searchTerm"
@@ -56,6 +43,16 @@ const Main = () => {
             userData={userData} {...props} />;
           }}
         />
+        <Route
+          exact
+          path="/login"
+          render={(props: Props) => {
+            if (token) return <Redirect to="/search" />;
+            //@ts-ignore
+            return <Login {...props} />;
+          }}
+        />
+
         <Route
           exact
           path="/search"
@@ -77,7 +74,7 @@ const Main = () => {
             setSearchTerm={setSearchTerm} {...props} />;
           }}
         />
-        {/* <Route exact path="/seach" component={Search} /> */}
+        <Redirect to="/" />
       </Switch>
     </>
   );

@@ -50,7 +50,7 @@ const NewSearch: React.FC<Props> = ({
         inputProps={{ "aria-label": "search gitHub" }}
         placeholder={placeholder}
       />
-      <NavLink to={`/result/${searchTerm.searchTerm}`} style={{ textDecoration: "none" }}>
+      <NavLink to={`/result/${searchTerm}`} style={{ textDecoration: "none" }}>
         <IconButton
           sx={{ p: "10px" }}
           aria-label="Search"
